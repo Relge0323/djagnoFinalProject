@@ -35,7 +35,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    quantity = models.PostiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
 
     def subtotal(self):
         return self.product.price * self.quantity

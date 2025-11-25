@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-46l!*(^u+h0yv$3!o)9rpk@)$mk!4@ps7)8=wwq^xlo$r1zu7(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/products/'
+LOGIN_REDIRECT_URL = '/login/'
+
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +59,7 @@ ROOT_URLCONF = 'estore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block content %}
+<h1>Your Cart</h1>
+<ul>
+    {% for item in order.items.all %}
+    <li>{{ item.product.name }} x {{ item.quantity }} = ${{ item.subtotal }}</li>
+    {% endfor %}
+</ul>
+<p>Total: ${{ order.total_price }}</p>
+<a href="{% url 'product_list' %}"Continue Shopping></a>
+{% endblock %}
