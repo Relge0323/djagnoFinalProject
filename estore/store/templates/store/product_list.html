@@ -5,17 +5,33 @@ Products
 {% endblock %}
 
 {% block content %}
-<h1>Products</h1>
+<h1 class="mb-4">Products</h1>
 
-<ul>
+<div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-2">
     {% for product in products %}
-    <li>
-        <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
-        <a href="{% url 'add_to_cart' product.pk %}">Add to Cart</a>
-    </li>
+    <div class="col">
+        <div class="card h-100 text-center shadow-sm" style="font-size: 0.8rem;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"
+                 style="height: 100px; object-fit: contain;">
+            {% endif %}
+            <div class="card-body p-1 d-flex flex-column justify-content-between">
+                <div>
+                    <p class="mb-1 fw-bold">{{ product.name }}</p>
+                    <p class="mb-1">${{ product.price }}</p>
+                </div>
+                <div class="d-grid gap-1">
+                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-outline-dark btn-sm">Details</a>
+                    <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-sm"
+                       style="background-color: #D4AF37; color: #333;"
+                       onmouseover="this.style.backgroundColor='#A52A2A'; this.style.color='#fff';"
+                       onmouseout="this.style.backgroundColor='#D4AF37'; this.style.color='#333';">
+                       Add
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
-
-<a href="{% url 'cart' %}">View Cart</a>
+</div>
 {% endblock %}
-

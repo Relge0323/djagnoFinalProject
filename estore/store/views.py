@@ -3,20 +3,29 @@ from .models import Product, Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-# Create your views here.
+# -----------------------------
+# Product Views
+# -----------------------------
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'store/product_list.html', {'products': products})
+
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'store/product_detail.html', {'product': product})
 
+
+# -----------------------------
+# Cart Views
+# -----------------------------
 @login_required
 def cart_view(request):
     order, created = Order.objects.get_or_create(user=request.user, complete=False)
     return render(request, 'store/cart.html', {'order': order})
+
 
 @login_required
 def add_to_cart(request, pk):
@@ -27,26 +36,31 @@ def add_to_cart(request, pk):
     order_item.save()
     return redirect('cart')
 
+
+# -----------------------------
+# Authentication Views
+# -----------------------------
 def signup_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = User.objects.create_user(username=username, password=password)
-        login(request, user)
-        return redirect('product_list')
-    return render(request, 'store/signup.html')
+    # Use Django's UserCreationForm for proper validation
+    form = UserCreationForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('product_list')
+    return render(request, 'store/signup.html', {'form': form})
 
 
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-
-        if user:
-            login(request, user)
-            return redirect('product_list')
-    return render(request, 'store/login.html')
+    # Use Django's AuthenticationForm for login
+    form = AuthenticationForm(request, data=request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            login(request, form.get_user())
+            # Optional: redirect back to next page
+            next_url = request.GET.get('next') or 'product_list'
+            return redirect(next_url)
+    return render(request, 'store/login.html', {'form': form})
 
 
 def logout_view(request):
