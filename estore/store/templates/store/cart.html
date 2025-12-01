@@ -16,14 +16,22 @@ Cart
                     <th>Product</th>
                     <th class="text-center">Quantity</th>
                     <th class="text-end">Subtotal</th>
+                    <th class="text-end">Remove</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in order.items.all %}
                 <tr>
                     <td>{{ item.product.name }}</td>
-                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'decrease_quantity' item.id %}" class="btn btn-sm btn-outline-dark">-</a>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <a href="{% url 'increase_quantity' item.id %}" class="btn btn-sm btn-outline-dark">+</a>
+                    </td>
                     <td class="text-end">${{ item.subtotal }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'remove_from_cart' item.id %}"class="btn btn-sm btn-outline-danger">Remove</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

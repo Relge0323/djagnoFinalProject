@@ -36,6 +36,38 @@ def add_to_cart(request, pk):
     order_item.save()
     return redirect('cart')
 
+@login_required
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(OrderItem, id=item_id)
+
+    if item.order.user != request.user:
+        return redirect('cart')
+    
+    item.delete()
+    return redirect('cart')
+
+
+# -----------------------------
+# Increase/Decrease Quantity Buttons
+# -----------------------------
+@login_required
+def increase_quantity(request, item_id):
+    item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__complete=False)
+    item.quantity += 1
+    item.save()
+    return redirect('cart')
+
+@login_required
+def decrease_quantity(request, item_id):
+    item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__complete=False)
+    if item.quantity > 1:
+        item.quantity -= 1
+        item.save()
+    else:
+        item.delete()
+
+    return redirect('cart')
+
 
 # -----------------------------
 # Authentication Views
@@ -66,3 +98,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('product_list')
+
+
+
