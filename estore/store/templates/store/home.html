@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block title %}The Sage Brush{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<div class="container-fluid p-0">
+    <div class="hero d-flex flex-column justify-content-center align-items-center text-center">
+        <h1 class="display-3 fw-bold mb-3" style="color: #f8f3e7;">
+            Welcome to The Sage Brush
+        </h1>
+        <p class="lead mb-4" style="color: #f5e8c7;">
+            Oddities • Curiosities • Gifts • Seasonal Magic
+        </p>
+
+        <a href="{% url 'product_list' %}" class="btn btn-lg px-5" style="background-color: #D4AF37; color: #333;">Shop Now</a>
+    </div>
+</div>
+
+<!-- FEATURE STRIP -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-3">
+            <h4>🧙 Unique Treasures</h4>
+            <p>Fantasy items, collectibles, and handcrafted curios.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h4>🎁 Perfect Gifts</h4>
+            <p>Find something unforgettable for any occasion.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h4>✨ Seasonal Magic</h4>
+            <p>Rotating holiday and seasonal items year-round.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero {
+    background-image: url('/static/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 65vh;
+    position: relative;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55); /* dark overlay */
+}
+
+.hero * {
+    position: relative; /* ensures text sits above overlay */
+    z-index: 2;
+}
+</style>
+
+{% endblock %}
