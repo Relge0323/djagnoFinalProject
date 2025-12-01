@@ -42,7 +42,9 @@ Cart
         <h4>Total: ${{ order.total_price }}</h4>
         <div class="d-flex gap-2">
             <a href="{% url 'product_list' %}" class="btn btn-outline-dark">Continue Shopping</a>
-            <a href="#" class="btn" style="background-color: #D4AF37; color: #333;"
+            
+            
+            <a href="{% url 'checkout' %}" class="btn" style="background-color: #D4AF37; color: #333;"
                onmouseover="this.style.backgroundColor='#A52A2A'; this.style.color='#fff';"
                onmouseout="this.style.backgroundColor='#D4AF37'; this.style.color='#333';">
                Checkout

@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class='container my-5'>
+    <h1>Checkout</h1>
+    <p>Total Due: ${{ order.total_price }}</p>
+
+    <a href="{% url 'complete_order' %}" class="btn btn-success w-100 mt-4">Place Order</a>
+</div>
+
+{% endblock %}

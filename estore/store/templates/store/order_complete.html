@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container my-5 text-center">
+    <h1>Order Complete!</h1>
+    <p>Your order has been placed successfully.</p>
+
+    <a href="{% url 'product_list' %}" class="btn btn-dark">Back to Store</a>
+
+</div>
+{% endblock %}

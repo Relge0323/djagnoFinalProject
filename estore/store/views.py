@@ -32,8 +32,11 @@ def add_to_cart(request, pk):
     product = get_object_or_404(Product, pk=pk)
     order, created = Order.objects.get_or_create(user=request.user, complete=False)
     order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
-    order_item.quantity += 1
-    order_item.save()
+
+    if order_item.quantity < product.stock:
+        order_item.quantity += 1
+        order_item.save()
+
     return redirect('cart')
 
 @login_required
@@ -53,8 +56,11 @@ def remove_from_cart(request, item_id):
 @login_required
 def increase_quantity(request, item_id):
     item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__complete=False)
-    item.quantity += 1
-    item.save()
+
+    if item.quantity < item.product.stock:
+        item.quantity += 1
+        item.save()
+
     return redirect('cart')
 
 @login_required
@@ -100,4 +106,23 @@ def logout_view(request):
     return redirect('product_list')
 
 
+@login_required
+def checkout(request):
+    order = get_object_or_404(Order, user=request.user, complete=False)
 
+    if order.items.count() == 0:
+        return redirect('cart')
+    
+    return render(request, 'store/checkout.html', {'order': order})
+
+
+@login_required
+def complete_order(request):
+    order = get_object_or_404(Order, user=request.user, complete=False)
+
+    order.complete = True
+    order.save()
+
+    Order.objects.get_or_create(user=request.user, complete=False)
+
+    return render(request, 'store/order_complete.html', {'order': order})

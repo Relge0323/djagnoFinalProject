@@ -27,9 +27,13 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
 
+    @property
     def total_price(self):
-        items = self.items.all()
-        return sum([item.subtotal() for item in items])
+        return sum(item.subtotal() for item in self.items.all())
+    
+    @property
+    def total_quantity(self):
+        return sum(item.quantity for item in self.items.all())
     
 
 class OrderItem(models.Model):
