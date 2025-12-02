@@ -123,9 +123,13 @@ def checkout(request):
 def complete_order(request):
     order = get_object_or_404(Order, user=request.user, complete=False)
 
+    for item in order.items.all():
+        product = item.product
+        if product and product.stock >= item.quantity:
+            product.stock -= item.quantity
+            product.save()
+
     order.complete = True
     order.save()
-
-    Order.objects.get_or_create(user=request.user, complete=False)
-
+    
     return render(request, 'store/order_complete.html', {'order': order})
