@@ -1,19 +1,24 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block title %}The Sage Brush{% endblock %}
 
 {% block content %}
+
 <!-- HERO SECTION -->
 <div class="container-fluid p-0">
     <div class="hero d-flex flex-column justify-content-center align-items-center text-center">
         <h1 class="display-3 fw-bold mb-3" style="color: #f8f3e7;">
-            Welcome to The Sage Brush
+            The Sage Brush
         </h1>
         <p class="lead mb-4" style="color: #f5e8c7;">
             Oddities • Curiosities • Gifts • Seasonal Magic
         </p>
 
-        <a href="{% url 'product_list' %}" class="btn btn-lg px-5" style="background-color: #D4AF37; color: #333;">Shop Now</a>
+        <a href="{% url 'product_list' %}" class="btn btn-lg px-5" 
+           style="background-color: #D4AF37; color: #333;">
+           Shop Now
+        </a>
     </div>
 </div>
 
@@ -37,7 +42,7 @@
 
 <style>
 .hero {
-    background-image: url('/static/images/hero-bg.jpg');
+    background-image: url("{% static 'store/images/Sage_Brush_Hero.jpg' %}");
     background-size: cover;
     background-position: center;
     height: 65vh;
