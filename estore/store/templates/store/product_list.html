@@ -10,7 +10,7 @@ Products
 <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-2">
     {% for product in products %}
     <div class="col">
-        <div class="card h-100 text-center shadow-sm" style="font-size: 0.8rem;">
+        <div class="card h-100 text-center" style="font-size: 0.8rem;">
             {% if product.image %}
             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"
                  style="height: 100px; object-fit: contain;">
@@ -20,8 +20,6 @@ Products
                 <div>
                     <p class="mb-1 fw-bold">{{ product.name }}</p>
                     <p class="mb-1">${{ product.price }}</p>
-
-                    <!-- ✅ Stock display added -->
                     <p class="mb-1">Stock: {{ product.stock }}</p>
                 </div>
 

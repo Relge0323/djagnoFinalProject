@@ -82,7 +82,6 @@ def decrease_quantity(request, item_id):
 # Authentication Views
 # -----------------------------
 def signup_view(request):
-    # Use Django's UserCreationForm for proper validation
     form = UserCreationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
@@ -93,12 +92,10 @@ def signup_view(request):
 
 
 def login_view(request):
-    # Use Django's AuthenticationForm for login
     form = AuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             login(request, form.get_user())
-            # Optional: redirect back to next page
             next_url = request.GET.get('next') or 'product_list'
             return redirect(next_url)
     return render(request, 'store/login.html', {'form': form})
@@ -109,6 +106,10 @@ def logout_view(request):
     return redirect('product_list')
 
 
+
+# -----------------------------
+# Checkout Views
+# -----------------------------
 @login_required
 def checkout(request):
     order = get_object_or_404(Order, user=request.user, complete=False)
