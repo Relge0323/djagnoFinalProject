@@ -2,5 +2,5 @@
 an e-commerce store using django and python
 
 =============
-need to pip install pillow before running
+added a requirements.txt file for relevant libraries
 =============
