@@ -2,12 +2,15 @@
 {% load form_tags %}
 
 {% block content %}
+<!-- a vertically centered login card -->
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
     <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
+                <!-- page title -->
                 <h4 class="text-center mb-4">Login</h4>
 
+                <!-- display any non-field form errors -->
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger">
                         {% for error in form.non_field_errors %}
@@ -16,11 +19,16 @@
                     </div>
                 {% endif %}
 
+                <!-- login form -->
                 <form method="post">
                     {% csrf_token %}
+
+                    <!-- username field -->
                     <div class="mb-3">
                         {{ form.username.label_tag }}
                         {{ form.username|add_class:"form-control" }}
+
+                        <!-- username validation errors -->
                         {% if form.username.errors %}
                             <div class="text-danger small">
                                 {% for error in form.username.errors %}
@@ -29,9 +37,13 @@
                             </div>
                         {% endif %}
                     </div>
+
+                    <!-- password field -->
                     <div class="mb-3">
                         {{ form.password.label_tag }}
                         {{ form.password|add_class:"form-control" }}
+
+                        <!-- password validation errors -->
                         {% if form.password.errors %}
                             <div class="text-danger small">
                                 {% for error in form.password.errors %}
@@ -41,10 +53,12 @@
                         {% endif %}
                     </div>
 
+                    <!-- submit button -->
                     <button class="btn w-100" style="background-color: #D4AF37; color: #333;">Log In</button>
 
                 </form>
 
+                <!-- link back to signup page-->
                 <div class="mt-3 text-center">
                     <a href="{% url 'signup' %}">Need an account? Sign up</a>
                 </div>

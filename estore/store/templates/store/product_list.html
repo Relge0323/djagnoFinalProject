@@ -7,6 +7,7 @@ Products
 {% block content %}
 <h1 class="mb-4">Products</h1>
 
+<!-- responsive grid: 2 columns on small screens, 4 on medium, 6 on large -->
 <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-2">
     {% for product in products %}
     <div class="col">
@@ -16,13 +17,17 @@ Products
                  style="height: 100px; object-fit: contain;">
             {% endif %}
 
+            <!-- a single product card -->
             <div class="card-body p-1 d-flex flex-column justify-content-between">
                 <div>
+                    
+                    <!-- basic product information-->
                     <p class="mb-1 fw-bold">{{ product.name }}</p>
                     <p class="mb-1">${{ product.price }}</p>
                     <p class="mb-1">Stock: {{ product.stock }}</p>
                 </div>
 
+                <!-- action buttons: details and add to cart-->
                 <div class="d-grid gap-1">
                     <a href="{% url 'product_detail' product.pk %}" class="btn btn-outline-dark btn-sm">Details</a>
                     <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-sm"

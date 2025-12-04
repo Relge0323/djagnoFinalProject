@@ -8,7 +8,10 @@ Cart
 <div class="container my-5">
     <h1 class="mb-4">Your Cart</h1>
 
+    <!-- check if the cart has any items -->
     {% if order.items.all %}
+
+    <!-- cart table -->
     <div class="table-responsive">
         <table class="table table-striped align-middle">
             <thead class="table-dark">
@@ -22,13 +25,26 @@ Cart
             <tbody>
                 {% for item in order.items.all %}
                 <tr>
+                    <!-- product name-->
                     <td>{{ item.product.name }}</td>
+
+                    <!-- quantity buttons -->
                     <td class="text-center">
+
+                        <!-- decrease button -->
                         <a href="{% url 'decrease_quantity' item.id %}" class="btn btn-sm btn-outline-dark">-</a>
+
+                        <!-- current quantity -->
                         <span class="mx-2">{{ item.quantity }}</span>
+
+                        <!-- increase button -->
                         <a href="{% url 'increase_quantity' item.id %}" class="btn btn-sm btn-outline-dark">+</a>
                     </td>
+
+                    <!-- subtotal -->
                     <td class="text-end">${{ item.subtotal }}</td>
+
+                    <!-- remove an item from the cart -->
                     <td class="text-end">
                         <a href="{% url 'remove_from_cart' item.id %}"class="btn btn-sm btn-outline-danger">Remove</a>
                     </td>
@@ -38,12 +54,18 @@ Cart
         </table>
     </div>
 
+    <!-- total and action buttons -->
     <div class="d-flex justify-content-between align-items-center mt-4">
+
+        <!-- order total price-->
         <h4>Total: ${{ order.total_price }}</h4>
+
         <div class="d-flex gap-2">
+
+            <!-- go back to product list -->
             <a href="{% url 'product_list' %}" class="btn btn-outline-dark">Continue Shopping</a>
             
-            
+            <!-- checkout button -->
             <a href="{% url 'checkout' %}" class="btn" style="background-color: #D4AF37; color: #333;"
                onmouseover="this.style.backgroundColor='#A52A2A'; this.style.color='#fff';"
                onmouseout="this.style.backgroundColor='#D4AF37'; this.style.color='#333';">
@@ -53,6 +75,8 @@ Cart
     </div>
 
     {% else %}
+
+    <!-- empty cart message -->
     <div class="alert alert-info">
         Your cart is empty. <a href="{% url 'product_list' %}">Browse products</a> to add items.
     </div>

@@ -5,17 +5,27 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container d-flex justify-content-center my-5">
     <div class="card shadow-sm" style="max-width: 500px; width: 100%;">
+
+        <!-- product image -->
         {% if product.image %}
         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
         {% endif %}
 
         <div class="card-body d-flex flex-column">
+            <!-- product name and a description -->
             <h2 class="card-title">{{ product.name }}</h2>
             <p class="card-text">{{ product.description }}</p>
+
+            <!-- inventory count -->
             <p><strong>In Stock:</strong> {{ product.stock }}</p>
+
+            <!-- price -->
             <p class="fw-bold mt-auto">Price: ${{ product.price }}</p>
+
+            <!-- add to cart button-->
             <a href="{% url 'add_to_cart' product.pk %}" class="btn w-100 mb-2"
                style="background-color: #D4AF37; color: #333;"
                onmouseover="this.style.backgroundColor='#A52A2A'; this.style.color='#fff';"
@@ -23,6 +33,7 @@
                Add to Cart
             </a>
 
+            <!-- return to product list-->
             <a href="{% url 'product_list' %}" class="btn btn-outline-dark w-100">Back to Products</a>
         </div>
     </div>
